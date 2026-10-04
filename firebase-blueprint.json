@@ -1,0 +1,111 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Registered member profile within the organisation",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "memberId": { "type": "string", "maxLength": 32 },
+        "fullName": { "type": "string", "maxLength": 100 },
+        "mobileNumber": { "type": "string", "maxLength": 20 },
+        "role": { "type": "string", "enum": ["USER", "ADMIN", "SUPER_ADMIN"] },
+        "status": { "type": "string", "enum": ["ACTIVE", "SUSPENDED", "BLOCKED"] },
+        "primaryDeviceId": { "type": "string", "maxLength": 128 },
+        "registeredAt": { "type": "string", "maxLength": 64 },
+        "lastLoginAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "memberId", "fullName", "mobileNumber", "role", "status", "registeredAt"]
+    },
+    "Wallet": {
+      "title": "Wallet",
+      "description": "User wallet holding real game balance in Rupees and bonus",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "availableGameCredits": { "type": "number" },
+        "bonusCredits": { "type": "number" },
+        "totalDepositsCount": { "type": "number" },
+        "totalDepositedAmount": { "type": "number" },
+        "updatedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["userId", "availableGameCredits", "bonusCredits", "totalDepositsCount", "totalDepositedAmount"]
+    },
+    "LedgerEntry": {
+      "title": "LedgerEntry",
+      "description": "Immutable balance transaction record for financial auditing",
+      "type": "object",
+      "properties": {
+        "ledgerId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "type": { "type": "string", "maxLength": 64 },
+        "amount": { "type": "number" },
+        "previousBalance": { "type": "number" },
+        "newBalance": { "type": "number" },
+        "referenceId": { "type": "string", "maxLength": 128 },
+        "source": { "type": "string", "maxLength": 64 },
+        "createdAt": { "type": "string", "maxLength": 64 },
+        "status": { "type": "string", "maxLength": 32 },
+        "description": { "type": "string", "maxLength": 256 }
+      },
+      "required": ["ledgerId", "userId", "type", "amount", "previousBalance", "newBalance", "referenceId", "createdAt"]
+    },
+    "CreditRequest": {
+      "title": "CreditRequest",
+      "description": "Withdrawal or redemption request requiring administrative review",
+      "type": "object",
+      "properties": {
+        "requestId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "memberId": { "type": "string", "maxLength": 32 },
+        "amount": { "type": "number" },
+        "requestType": { "type": "string", "maxLength": 64 },
+        "status": { "type": "string", "enum": ["PENDING", "APPROVED", "REJECTED", "COMPLETED"] },
+        "submittedAt": { "type": "string", "maxLength": 64 },
+        "reviewedAt": { "type": "string", "maxLength": 64 },
+        "reviewedBy": { "type": "string", "maxLength": 128 },
+        "note": { "type": "string", "maxLength": 256 }
+      },
+      "required": ["requestId", "userId", "memberId", "amount", "requestType", "status", "submittedAt"]
+    },
+    "GameSession": {
+      "title": "GameSession",
+      "description": "Server-verified game outcome record (WinGo, K3, Slots, Aviator, etc.)",
+      "type": "object",
+      "properties": {
+        "sessionId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "gameId": { "type": "string", "maxLength": 64 },
+        "stake": { "type": "number" },
+        "payout": { "type": "number" },
+        "multiplier": { "type": "number" },
+        "result": { "type": "string", "enum": ["WIN", "LOSS"] },
+        "outcomeDetails": { "type": "string", "maxLength": 512 },
+        "timestamp": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["sessionId", "userId", "gameId", "stake", "payout", "result", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Organisation member profiles"
+    },
+    "/wallets/{userId}": {
+      "schema": { "$ref": "#/entities/Wallet" },
+      "description": "User balances and deposit milestones"
+    },
+    "/ledgers/{ledgerId}": {
+      "schema": { "$ref": "#/entities/LedgerEntry" },
+      "description": "Immutable balance transaction audit entries"
+    },
+    "/requests/{requestId}": {
+      "schema": { "$ref": "#/entities/CreditRequest" },
+      "description": "Withdrawal redemption requests"
+    },
+    "/gameSessions/{sessionId}": {
+      "schema": { "$ref": "#/entities/GameSession" },
+      "description": "Recorded game outcome history"
+    }
+  }
+}

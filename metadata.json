@@ -1,0 +1,6 @@
+{
+  "name": "RECOVERY LOSSS",
+  "description": "Private organisation gaming platform with virtual game credits, server-verified games, wallet ledger, invite-only onboarding, and modular payment architecture.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

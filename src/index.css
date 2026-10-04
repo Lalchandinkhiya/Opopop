@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --gold-primary: #D4AF37;
+    --gold-bright: #F5C542;
+    --gold-dark: #997A15;
+    --bg-dark: #08090C;
+    --bg-surface: #10121A;
+    --bg-card: #151824;
+    --border-subtle: rgba(212, 175, 55, 0.15);
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #08090C;
+    color: #F3F4F6;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .font-display {
+    font-family: 'Cinzel', Georgia, serif;
+  }
+}
+
+/* Custom scrollbars for clean casino UI */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0D0F17;
+}
+::-webkit-scrollbar-thumb {
+  background: #232736;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+/* Luxury glow effects */
+.gold-glow {
+  box-shadow: 0 0 25px -5px rgba(212, 175, 55, 0.3);
+}
+
+.gold-border-glow {
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.1), 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #FFF1B8 0%, #F5C542 40%, #D4AF37 70%, #997A15 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-btn {
+  background: linear-gradient(135deg, #F5C542 0%, #D4AF37 50%, #B88E1E 100%);
+  color: #08090C;
+  font-weight: 700;
+}
+
+.gold-gradient-btn:hover {
+  background: linear-gradient(135deg, #FFE07D 0%, #F5C542 50%, #D4AF37 100%);
+}
+
+.card-luxury {
+  background: linear-gradient(180deg, rgba(26, 29, 43, 0.85) 0%, rgba(16, 18, 26, 0.95) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  backdrop-filter: blur(12px);
+}
